@@ -6,12 +6,7 @@ const{Dish} = require('./Dish')
 describe('Customer Database', () => {
     beforeAll(async() => {
         await sequelize.sync({force:true})
-        const arrayOfDish=[
-            {Order_id: 1001, Quantity: 2,Order_date : '2021-12-01',Cus_id:101},
-            {Order_id:  1002,Quantity: 1,Order_date:'2021-12-01',Cus_id:111},
-            {Order_id: 1003, Quantity: 1,Order_date: '2021-12-01',Cus_id:125}
-        ]
-        await Dish.bulkCreate(arrayOfDish)
+    
     const arrayOfMenulist=[
         {entree_id: 20, entree_name: 'Steak',price : 19.99},
         {entree_id:  25,entree_name: 'Chicken',price: 12.99},
@@ -24,6 +19,12 @@ describe('Customer Database', () => {
         {Cus_id: 111, Payment_id: 6543,Food_id: 99}
     ]
     await Customer.bulkCreate(arrayOfCustomer)
+    const arrayOfDish=[
+        {Order_id: 1001, Quantity: 2,Order_date : '2021-12-01',Cus_id:101},
+        {Order_id:  1002,Quantity: 1,Order_date:'2021-12-01',Cus_id:111},
+        {Order_id: 1003, Quantity: 1,Order_date: '2021-12-01',Cus_id:125}
+    ]
+    await Dish.bulkCreate(arrayOfDish)
 })
     test('Menu has items', async() => {
         
@@ -32,15 +33,6 @@ describe('Customer Database', () => {
               entree_name: 'Steak'
             }
           });
-          test('Dish has Items', async() => {
-            
-               const testDish = await Dish.findOne({
-                where: {
-                  Order_id: 1001
-                }
-              });
-            expect(testDish.Order_id).toBe(1001)
-        })
         expect(testMenu.entree_name).toBe('Steak')
     })
     test('Customer tabel', async() => {
@@ -51,5 +43,13 @@ describe('Customer Database', () => {
             }
           });
         expect(testCustomer.Cus_id).toBe(101)
+    })
+    test('Dish has Items', async() => {
+        const testDish = await Dish.findOne({
+            where: {
+              Order_id: 1001
+            }
+          });
+        expect(testDish.Order_id).toBe(1001)
     })
 })
