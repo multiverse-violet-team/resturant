@@ -1,0 +1,1 @@
+SELECT Food_id FROM Menu;
